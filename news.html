@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News - Translational Immuno-Oncology</title>
+    <link rel="stylesheet" href="styles/immuno_oncology_theme.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" type="image/png" href="./images/sscf_logo.png">
+    <style>
+        /* Page-specific styles for news page */
+        .news-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .news-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        .news-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .news-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .news-date {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+        .news-caption {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #FFF;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+        .news-link {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 600;
+            align-self: flex-start;
+        }
+        .news-link:hover {
+            color: #FFF;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="canvas-background"></div>
+
+    <!-- Navigation -->
+    <a href="index.html" class="lab-name-logo">Translational Immuno-Oncology</a>
+    
+    <button class="hamburger-menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </button>
+
+    <nav class="navbar">
+        <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="people.html">People</a></li>
+            <li class="nav-item"><a class="nav-link" href="research.html">Research</a></li>
+            <li class="nav-item"><a class="nav-link" href="publications.html">Publications</a></li>
+            <li class="nav-item"><a class="nav-link active" href="news.html">News</a></li>
+            <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="mobile-nav">
+        <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="people.html">People</a></li>
+            <li class="nav-item"><a class="nav-link" href="research.html">Research</a></li>
+            <li class="nav-item"><a class="nav-link" href="publications.html">Publications</a></li>
+            <li class="nav-item"><a class="nav-link active" href="news.html">News</a></li>
+            <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+    </div>
+
+    <main>
+        <header class="hero-section" style="height: 50vh;">
+            <h1 class="hero-title">Latest <span class="highlight">News</span></h1>
+            <p class="hero-tagline">Updates from the Translational Immuno-Oncology lab.</p>
+        </header>
+
+        <section class="content-section">
+            <h2 class="section-title">2025 Highlights</h2>
+            <div class="cards-grid">
+                <div class="news-card">
+                    <img src="images/news/anrf_talk.jpg" alt="ANRF Talk" class="news-image">
+                    <div class="news-content">
+                        <span class="news-date">November 7, 2025</span>
+                        <h5 class="news-caption">Dr. Namani invited to speak at the ANRF-PMECRG lightning talk series.</h5>
+                        <a href="https://www.youtube.com/live/LoMuQOjlp5M" target="_blank" class="news-link">Watch Video</a>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <img src="images/news/fhno.jpeg" alt="FHNO Conference" class="news-image">
+                    <div class="news-content">
+                        <span class="news-date">November 6, 2025</span>
+                        <h5 class="news-caption">Dr. Namani delivers a talk on head and neck cancer at FHNO pre-conference workshop.</h5>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <img src="images/icmr.svg" alt="ICMR Logo" class="news-image" style="object-fit: contain; padding: 2rem;">
+                    <div class="news-content">
+                        <span class="news-date">October 31, 2025</span>
+                        <h5 class="news-caption">Dr. Namani secures ICMR grant for lung cancer liquid biopsy diagnosis.</h5>
+                        <a href="https://epms.icmr.org.in/extramuralstaticweb/result/SG%202025%20FINAL%20RESULTS%2031%20oct%202025_Updated.pdf" target="_blank" class="news-link">Grant Information</a>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <img src="images/news/oncomine.jpeg" alt="Oncomine Meeting" class="news-image">
+                    <div class="news-content">
+                        <span class="news-date">July 10, 2025</span>
+                        <h5 class="news-caption">Dr. Namani invited as guest speaker at the Oncomine User Meeting 2025 by ThermoFisher Scientific.</h5>
+                    </div>
+                </div>
+                 <div class="news-card">
+                    <img src="images/news/KapconImage.jpg" alt="KAPCON Workshop" class="news-image">
+                    <div class="news-content">
+                        <span class="news-date">July 10, 2025</span>
+                        <h5 class="news-caption">Dr. Namani serves as a resource person for NGS analysis at KAPCON pre-conference workshop.</h5>
+                        <a href="https://pathodyssey.in/WorkShopPdf/WORKSHOP-3.pdf" target="_blank" class="news-link">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 Translational Immuno-Oncology. All Rights Reserved.</p>
+        <p>Developed with creativity by Gemini.</p>
+    </footer>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+
+        <script src="animation.js"></script>
+
+        <script src="common.js"></script>
+
+    </body>
+
+    </html>

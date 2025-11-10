@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>People - Translational Immuno-Oncology</title>
+    <link rel="stylesheet" href="styles/immuno_oncology_theme.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" type="image/png" href="./images/sscf_logo.png">
+    <style>
+        /* Page-specific styles for people page */
+        .pi-section {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 3rem;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 3rem;
+            align-items: flex-start;
+            border: 1px solid var(--border-color);
+        }
+        .pi-photo-bio {
+            text-align: center;
+        }
+        .pi-photo-bio img {
+            width: 100%;
+            max-width: 250px;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+        .pi-photo-bio h3 {
+            color: #FFF;
+            font-size: 1.5rem;
+        }
+        .pi-photo-bio p {
+            font-size: 0.95rem;
+            opacity: 0.8;
+            text-align: left;
+        }
+        .pi-details h4 {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+        .pi-details ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 2rem 0;
+        }
+        .pi-details ul li {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        .pi-details ul li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+        }
+        .people-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .people-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        .people-card img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1.5rem;
+            border: 3px solid var(--border-color);
+        }
+        .people-card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #FFF;
+        }
+        .people-card p {
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+            margin: 0.25rem 0 0 0;
+        }
+        .people-card .linkedin-icon {
+            color: #FFF;
+            font-size: 1.5rem;
+            margin-top: 1rem;
+            display: inline-block;
+            opacity: 0.5;
+            transition: opacity 0.3s;
+        }
+        .people-card .linkedin-icon:hover {
+            opacity: 1;
+        }
+
+        @media (max-width: 992px) {
+            .pi-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="canvas-background"></div>
+
+    <!-- Navigation -->
+    <a href="index.html" class="lab-name-logo">Translational Immuno-Oncology</a>
+    
+    <button class="hamburger-menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </button>
+
+    <nav class="navbar">
+        <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link active" href="people.html">People</a></li>
+            <li class="nav-item"><a class="nav-link" href="research.html">Research</a></li>
+            <li class="nav-item"><a class="nav-link" href="publications.html">Publications</a></li>
+            <li class="nav-item"><a class="nav-link" href="news.html">News</a></li>
+            <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="mobile-nav">
+        <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="people.html">People</a></li>
+            <li class="nav-item"><a class="nav-link" href="research.html">Research</a></li>
+            <li class="nav-item"><a class="nav-link" href="publications.html">Publications</a></li>
+            <li class="nav-item"><a class="nav-link" href="news.html">News</a></li>
+            <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+    </div>
+
+    <main>
+        <header class="hero-section" style="height: 50vh;">
+            <h1 class="hero-title">Our <span class="highlight">Team</span></h1>
+            <p class="hero-tagline">Meet the dedicated scientists and researchers driving our mission forward.</p>
+        </header>
+
+        <section class="content-section">
+            <h2 class="section-title">Principal Investigator</h2>
+            <div class="pi-section">
+                <div class="pi-photo-bio">
+                    <img src="images/akki3.png" alt="Dr. Tapas Patra">
+                    <h3>Dr. Tapas Patra, Ph.D</h3>
+                    <p>Research Interest: Understand the role of immune system in cancer initiation & progression; modulate the immune environment favorable to anticancer therapy; advancement of therapeutic strategies in cancer.</p>
+                </div>
+                <div class="pi-details">
+                    <h4>Education</h4>
+                    <ul>
+                        <li><strong>Ph.D.</strong> Jadavpur University (Molecular Immunology) 2012</li>
+                        <li><strong>M.Sc.</strong> University of Kalyani (Microbiology) 2004</li>
+                        <li><strong>B.Sc.</strong> University of Calcutta (Physiology) 2002</li>
+                    </ul>
+                    <h4>Experience</h4> 
+                    <ul>
+                        <li><strong>Principal Investigator</strong>, Sri Shankara Cancer Hospital & Research Center, Bangalore, India (January 2023 - Present).</li>
+                        <li><strong>Research Scientist</strong>, Saint Louis University, USA (November 2017 - July 2022).</li>
+                        <li><strong>Senior Research Associate</strong>, Chittaranjan National Cancer Institute, Kolkata (October 2015 - November 2017).</li>
+                        <li><strong>Postdoctoral Research Fellow</strong>, IISER, Mohali (April 2014 - August 2015).</li>
+                        <li><strong>Postdoctoral Research Fellow</strong>, National Institute of Pathology, New Delhi (August 2011 - April 2014).</li>
+                        <li><strong>Senior Research Fellow</strong>, NICED, Kolkata (January 2009 - August 2011).</li>
+                        <li><strong>Senior Research Fellow</strong>, NICED, Kolkata (July 2007 - January 2009).</li>
+                        <li><strong>Junior Research Fellow</strong>, NICED, Kolkata (May 2005 - May 2007).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">Members</h2>
+            <div class="cards-grid">
+                <div class="people-card">
+                    <img src="images/durga1.jpg" alt="Durga">
+                    <h3>Durga</h3>
+                    <p>Senior Research Associate</p>
+                    <a href="https://www.linkedin.com/in/durgadevi-veeraiyan-5b287b147/" target="_blank" class="linkedin-icon"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <div class="people-card">
+                    <img src="images/aparna_r1.jpg" alt="Aparna R">
+                    <h3>Aparna R</h3>
+                    <p>Junior Research Fellow</p>
+                    <a href="https://www.linkedin.com/in/aparna-r-nair/" target="_blank" class="linkedin-icon"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <div class="people-card">
+                    <img src="images/guruguhan1.jpg" alt="Guruguhan">
+                    <h3>Guruguhan</h3>
+                    <p>Bioinformatician</p>
+                    <a href="https://www.linkedin.com/in/guruguhan-s/" target="_blank" class="linkedin-icon"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <div class="people-card">
+                    <img src="images/rithika1.jpg" alt="Rithika">
+                    <h3>Rithika</h3>
+                    <p>Research Intern</p>
+                    <a href="https://www.linkedin.com/in/rithika-kamath-72b00b26a/" target="_blank" class="linkedin-icon"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <div class="people-card">
+                    <img src="images/suhas1.jpg" alt="Suhas">
+                    <h3>Suhas</h3>
+                    <p>Research Intern</p>
+                    <a href="https://www.linkedin.com/in/suhas-ns-522290378/" target="_blank" class="linkedin-icon"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <div class="people-card">
+                    <img src="images/nawaneetan1.jpg" alt="Nawaneetan">
+                    <h3>Nawaneetan</h3>
+                    <p>Research Intern</p>
+                    <a href="https://www.linkedin.com/in/nawaneetan-sriraman/" target="_blank" class="linkedin-icon"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <div class="people-card">
+                    <img src="images/atharva.jpg" alt="Atharva">
+                    <h3>Atharva</h3>
+                    <p>Research Intern</p>
+                    <a href="https://www.linkedin.com/in/atharvasreekar/" target="_blank" class="linkedin-icon"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <div class="people-card">
+                    <img src="images/shambhavi1.jpeg" alt="Shambhavi">
+                    <h3>Shambhavi</h3>
+                    <p>Research Intern</p>
+                    <a href="#" target="_blank" class="linkedin-icon"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">Alumni</h2>
+            <div class="cards-grid">
+                <div class="people-card">
+                    <img src="images/vikas1.jpg" alt="Vikas">
+                    <h3>Vikas</h3>
+                    <p>Research Intern</p>
+                    <a href="https://www.linkedin.com/in/vikas-choudhary-72a744217/" target="_blank" class="linkedin-icon"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <div class="people-card">
+                    <img src="images/aparna1.jpeg" alt="Aparna">
+                    <h3>Aparna</h3>
+                    <p>Research Intern</p>
+                    <a href="https://www.linkedin.com/in/aparna8104/" target="_blank" class="linkedin-icon"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <div class="people-card">
+                    <img src="images/shriya1.jpg" alt="Shriya">
+                    <h3>Shriya</h3>
+                    <p>Research Intern</p>
+                    <a href="https://www.linkedin.com/in/shriyakanchi/" target="_blank" class="linkedin-icon"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <div class="people-card">
+                    <img src="images/parul1.jpg" alt="Parul">
+                    <h3>Parul</h3>
+                    <p>Research Intern</p>
+                    <a href="https://www.linkedin.com/in/parul-dhand-pd2002/" target="_blank" class="linkedin-icon"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <div class="people-card">
+                    <img src="images/parinika1.jpg" alt="Parinika">
+                    <h3>Parinika</h3>
+                    <p>Research Intern</p>
+                    <a href="https://www.linkedin.com/in/parinika-raj/" target="_blank" class="linkedin-icon"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <div class="people-card">
+                    <img src="images/vishesh1.jpg" alt="Vishesh">
+                    <h3>Vishesh</h3>
+                    <p>Research Intern</p>
+                    <a href="https://www.linkedin.com/in/vishesh-agarwal-336713194/" target="_blank" class="linkedin-icon"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 Translational Immuno-Oncology. All Rights Reserved.</p>
+        <p>Developed with creativity by Gemini.</p>
+    </footer>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+
+            <script src="animation.js"></script>
+
+            <script src="common.js"></script>
+
+        </body>
+
+        </html>

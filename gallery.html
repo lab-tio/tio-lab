@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Translational Immuno-Oncology</title>
+    <link rel="stylesheet" href="styles/immuno_oncology_theme.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" type="image/png" href="./images/sscf_logo.png">
+    <style>
+        /* Page-specific styles for gallery page */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+        .gallery-item {
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            border: 1px solid var(--border-color);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s, filter 0.3s;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.05);
+            filter: brightness(0.8);
+        }
+        .gallery-item::after {
+            content: 'VIEW';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #FFF;
+            font-weight: 600;
+            font-size: 1.2rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+
+        /* Lightbox styles */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        .lightbox.active {
+            display: flex;
+        }
+        .lightbox-content {
+            max-width: 90vw;
+            max-height: 80vh;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            color: #FFF;
+            font-size: 3rem;
+            cursor: pointer;
+            line-height: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="canvas-background"></div>
+
+    <!-- Navigation -->
+    <a href="index.html" class="lab-name-logo">Translational Immuno-Oncology</a>
+    
+    <button class="hamburger-menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </button>
+
+    <nav class="navbar">
+        <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="people.html">People</a></li>
+            <li class="nav-item"><a class="nav-link" href="research.html">Research</a></li>
+            <li class="nav-item"><a class="nav-link" href="publications.html">Publications</a></li>
+            <li class="nav-item"><a class="nav-link" href="news.html">News</a></li>
+            <li class="nav-item"><a class="nav-link active" href="gallery.html">Gallery</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="mobile-nav">
+        <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="people.html">People</a></li>
+            <li class="nav-item"><a class="nav-link" href="research.html">Research</a></li>
+            <li class="nav-item"><a class="nav-link" href="publications.html">Publications</a></li>
+            <li class="nav-item"><a class="nav-link" href="news.html">News</a></li>
+            <li class="nav-item"><a class="nav-link active" href="gallery.html">Gallery</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+    </div>
+
+    <main>
+        <header class="hero-section" style="height: 50vh;">
+            <h1 class="hero-title">Lab <span class="highlight">Gallery</span></h1>
+            <p class="hero-tagline">A glimpse into our work, events, and team.</p>
+        </header>
+
+        <section class="content-section">
+            <h2 class="section-title">Lab Dinner 2025</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="images/event_pics/2025/dinner_2025/group2.jpg" alt="Lab Dinner 2025"></div>
+                <div class="gallery-item"><img src="images/event_pics/2025/dinner_2025/group4.jpeg" alt="Lab Dinner 2025"></div>
+                <div class="gallery-item"><img src="images/event_pics/2025/dinner_2025/group1.jpg" alt="Lab Dinner 2025"></div>
+                <div class="gallery-item"><img src="images/event_pics/2025/dinner_2025/group3.jpeg" alt="Lab Dinner 2025"></div>
+                <div class="gallery-item"><img src="images/event_pics/2025/dinner_2025/akki_neeraj.jpg" alt="Lab Dinner 2025"></div>
+                <div class="gallery-item"><img src="images/event_pics/2025/dinner_2025/food1.jpeg" alt="Lab Dinner 2025"></div>
+                <div class="gallery-item"><img src="images/event_pics/2025/dinner_2025/food2.jpeg" alt="Lab Dinner 2025"></div>
+            </div>
+        </section>
+    </main>
+
+    <div class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img src="" alt="Lightbox Image" class="lightbox-content">
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 Translational Immuno-Oncology. All Rights Reserved.</p>
+        <p>Developed with creativity by Gemini.</p>
+    </footer>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+
+        <script src="animation.js"></script>
+
+        <script src="common.js"></script>
+
+    </body>
+
+    </html>
