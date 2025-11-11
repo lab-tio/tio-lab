@@ -75,7 +75,6 @@
         <ul class="navbar-nav">
             <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
             <li class="nav-item"><a class="nav-link" href="people.html">People</a></li>
-            <li class="nav-item"><a class="nav-link" href="research.html">Research</a></li>
             <li class="nav-item"><a class="nav-link" href="publications.html">Publications</a></li>
             <li class="nav-item"><a class="nav-link" href="news.html">News</a></li>
             <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
@@ -87,7 +86,6 @@
         <ul class="navbar-nav">
             <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
             <li class="nav-item"><a class="nav-link" href="people.html">People</a></li>
-            <li class="nav-item"><a class="nav-link" href="research.html">Research</a></li>
             <li class="nav-item"><a class="nav-link" href="publications.html">Publications</a></li>
             <li class="nav-item"><a class="nav-link" href="news.html">News</a></li>
             <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
@@ -111,7 +109,10 @@
                     <p><a href="mailto:tapaspatra@ssnccpr.org">tapaspatra@ssnccpr.org</a></p>
                 </div>
                 <div class="map-container">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.2369905344!2d77.5709913148218!3d12.95673899086597!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae15e38e66953d%3A0x495a77f53349a24d!2sSri%20Shankara%20Cancer%20Hospital%20%26%20Research%20Centre!5e0!3m2!1sen!2sin!4v1678886058589!5m2!1sen!2sin" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrading"></iframe>
+                    <iframe 
+                    src="https://www.google.com/maps/embed/v1/place?q=sri+shankara+cancer+hospital&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8" 
+                    frameborder="0">
+                </iframe>
                 </div>
             </div>
         </section>
@@ -124,9 +125,268 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
 
-        <script src="animation.js"></script>
+        <script>
+// --- p5.js Cellular Battlefield Animation ---
+let tCells = [];
+let cancerCells = [];
 
-        <script src="common.js"></script>
+function setup() {
+    let canvas = createCanvas(windowWidth, windowHeight);
+    canvas.parent('canvas-background');
+    
+    // Create initial cells
+    for (let i = 0; i < 15; i++) {
+        tCells.push(new TCell(random(width), random(height)));
+    }
+    for (let i = 0; i < 20; i++) {
+        cancerCells.push(new CancerCell(random(width), random(height)));
+    }
+}
+
+function draw() {
+    background('#051424');
+    
+    // Update and display cells
+    for (let i = tCells.length - 1; i >= 0; i--) {
+        tCells[i].update(cancerCells);
+        tCells[i].display();
+    }
+    for (let i = cancerCells.length - 1; i >= 0; i--) {
+        cancerCells[i].update();
+        cancerCells[i].display();
+        if (cancerCells[i].isDead()) {
+            cancerCells.splice(i, 1);
+            // Add a new cancer cell to maintain population
+            cancerCells.push(new CancerCell(random(width), random(height)));
+        }
+    }
+}
+
+function windowResized() {
+    resizeCanvas(windowWidth, windowHeight);
+}
+
+// T-Cell Class
+class TCell {
+    constructor(x, y) {
+        this.pos = createVector(x, y);
+        this.vel = p5.Vector.random2D().mult(random(0.3, 0.6));
+        this.size = 12;
+        this.color = color(100, 255, 100, 200); // Vibrant Green
+        this.target = null;
+    }
+
+    update(targets) {
+        if (this.target && !this.target.isDead()) {
+            let dir = p5.Vector.sub(this.target.pos, this.pos);
+            this.vel.lerp(dir.setMag(1), 0.1);
+            this.pos.add(this.vel);
+            
+            let d = p5.Vector.dist(this.pos, this.target.pos);
+            if (d < this.target.size / 2) {
+                this.target.health -= 0.5; // Damage target
+            }
+        } else {
+            this.target = null;
+            this.vel.rotate(random(-0.1, 0.1));
+            this.pos.add(this.vel);
+            this.edges();
+
+            let closestDist = Infinity;
+            for (let target of targets) {
+                let d = dist(this.pos.x, this.pos.y, target.pos.x, target.pos.y);
+                if (d < 100 && d < closestDist) {
+                    closestDist = d;
+                    this.target = target;
+                }
+            }
+        }
+    }
+
+    display() {
+        push();
+        translate(this.pos.x, this.pos.y);
+        rotate(this.vel.heading());
+        
+        // Cell body
+        noStroke();
+        fill(this.color);
+        ellipse(0, 0, this.size, this.size);
+        
+        // T-Cell Receptor (TCR)
+        stroke(255, 255, 255, 200);
+        strokeWeight(2);
+        line(this.size / 2, 0, this.size / 2 + 4, 0);
+
+        pop();
+        
+        // Attack animation
+        if(this.target && p5.Vector.dist(this.pos, this.target.pos) < this.target.size / 2 + 5) {
+            stroke(255, 100, 100, 150);
+            strokeWeight(1);
+            line(this.pos.x, this.pos.y, this.target.pos.x, this.target.pos.y);
+        }
+    }
+
+    edges() {
+        if (this.pos.x > width + this.size) this.pos.x = -this.size;
+        if (this.pos.x < -this.size) this.pos.x = width + this.size;
+        if (this.pos.y > height + this.size) this.pos.y = -this.size;
+        if (this.pos.y < -this.size) this.pos.y = height + this.size;
+    }
+}
+
+// Cancer Cell Class
+class CancerCell {
+    constructor(x, y) {
+        this.pos = createVector(x, y);
+        this.vel = p5.Vector.random2D().mult(random(0.1, 0.2));
+        this.maxSize = random(25, 35);
+        this.size = this.maxSize;
+        this.color = color(200, 100, 150, 150); // More reddish-purple
+        this.nucleusColor = color(80, 40, 100, 180); // Darker blue/purple
+        this.health = 100;
+        this.noiseOffset = random(1000);
+    }
+
+    update() {
+        this.pos.add(this.vel);
+        this.edges();
+        this.size = map(this.health, 0, 100, 10, this.maxSize);
+    }
+
+    display() {
+        noStroke();
+        
+        // Cell body (irregular shape)
+        fill(this.color);
+        beginShape();
+        let angleStep = TWO_PI / 15;
+        for (let a = 0; a < TWO_PI; a += angleStep) {
+            let offset = map(noise(this.noiseOffset + cos(a) * 2, this.noiseOffset + sin(a) * 2), 0, 1, -this.size * 0.2, this.size * 0.2);
+            let r = this.size / 2 + offset;
+            let x = this.pos.x + r * cos(a);
+            let y = this.pos.y + r * sin(a);
+            curveVertex(x, y);
+        }
+        endShape(CLOSE);
+
+        // Large, dark nucleus
+        fill(this.nucleusColor);
+        ellipse(this.pos.x, this.pos.y, this.size * 0.6);
+
+        this.noiseOffset += 0.01;
+    }
+
+    isDead() {
+        return this.health <= 0;
+    }
+
+    edges() {
+        if (this.pos.x > width + this.size) this.pos.x = -this.size;
+        if (this.pos.x < -this.size) this.pos.x = width + this.size;
+        if (this.pos.y > height + this.size) this.pos.y = -this.size;
+        if (this.pos.y < -this.size) this.pos.y = height + this.size;
+    }
+}
+        </script>
+
+        <script>
+// --- Navbar Scroll Effect ---
+const navbar = document.querySelector('.navbar');
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+});
+
+// --- Mobile Navigation ---
+const hamburger = document.querySelector('.hamburger-menu');
+const mobileNav = document.querySelector('.mobile-nav');
+const mobileLinks = document.querySelectorAll('.mobile-nav .nav-link');
+
+hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    mobileNav.classList.toggle('active');
+});
+
+mobileLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        mobileNav.classList.remove('active');
+    });
+});
+
+// --- Accordion ---
+const accordionBtns = document.querySelectorAll(".accordion-button");
+if (accordionBtns) {
+    accordionBtns.forEach(btn => {
+        btn.addEventListener("click", function() {
+            const content = this.nextElementSibling;
+            const isActive = this.classList.contains('active');
+
+            // Close all other accordions
+            accordionBtns.forEach(otherBtn => {
+                if (otherBtn !== this) {
+                    otherBtn.classList.remove('active');
+                    otherBtn.nextElementSibling.style.maxHeight = null;
+                }
+            });
+
+            // Toggle current accordion
+            if (isActive) {
+                this.classList.remove('active');
+                content.style.maxHeight = null;
+            } else {
+                this.classList.add('active');
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+    });
+}
+
+// --- Smooth Scrolling ---
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+});
+
+// --- Gallery Lightbox ---
+const galleryItems = document.querySelectorAll('.gallery-item');
+const lightbox = document.querySelector('.lightbox');
+const lightboxContent = document.querySelector('.lightbox-content');
+const lightboxClose = document.querySelector('.lightbox-close');
+
+if (galleryItems) {
+    galleryItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const imgSrc = item.querySelector('img').src;
+            lightboxContent.src = imgSrc;
+            lightbox.classList.add('active');
+        });
+    });
+}
+
+if (lightboxClose) {
+    lightboxClose.addEventListener('click', () => {
+        lightbox.classList.remove('active');
+    });
+}
+
+if (lightbox) {
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) {
+            lightbox.classList.remove('active');
+        }
+    });
+}
+        </script>
 
     </body>
 

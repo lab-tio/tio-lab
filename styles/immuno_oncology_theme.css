@@ -42,7 +42,7 @@ body {
 .lab-name-logo {
     position: fixed;
     top: 1.5rem;
-    left: 5%;
+    left: 0.5%;
     z-index: 1001;
     font-size: 1.5rem;
     font-weight: 600;
@@ -59,7 +59,7 @@ body {
 .navbar {
     position: fixed;
     top: 1.5rem;
-    right: 5%; /* Move to extreme right */
+    right: 0.5%; /* Move to extreme right */
     left: auto; /* Remove left positioning */
     transform: none; /* Remove transform */
     width: auto;
@@ -153,9 +153,14 @@ body {
 
 /* --- Content Sections --- */
 .content-section {
-    padding: 6rem 5%;
+    padding: 6rem 0; /* Removed horizontal padding */
     max-width: 1400px;
     margin: 0 auto;
+}
+
+#research {
+    max-width: none; /* Allow it to take full width */
+    padding: 6rem 0.5rem; /* Desired padding for the section */
 }
 
 .section-title {
@@ -199,25 +204,157 @@ body {
 }
 
 /* --- Research Cards Section --- */
-.cards-grid {
+#research .cards-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0; /* Remove padding from cards-grid itself */
+}
+
+#research .research-card {
+    flex: 1 1 calc(20% - 1rem); /* flex-grow, flex-shrink, flex-basis */
+    max-width: calc(20% - 1rem); /* Ensure it doesn't grow larger than 20% */
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 1200px) {
+    #research .research-card {
+        flex-basis: calc(33.33% - 1rem);
+        max-width: calc(33.33% - 1rem);
+    }
+}
+
+@media (max-width: 768px) {
+    #research .research-card {
+        flex-basis: calc(50% - 1rem);
+        max-width: calc(50% - 1rem);
+    }
+}
+
+@media (max-width: 576px) {
+    #research .research-card {
+        flex-basis: 100%;
+        max-width: 100%;
+    }
+}
+
+/* --- People Page Grid --- */
+.people-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
 }
 
-.research-card {
+.people-card {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: 15px;
-    padding: 2.5rem;
+    padding: 2rem;
     text-align: center;
     transition: transform 0.3s, box-shadow 0.3s;
 }
-
-.research-card:hover {
+.people-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-    border-color: var(--secondary-color);
+}
+.people-card img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1.5rem;
+    border: 3px solid var(--border-color);
+}
+.people-card h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #FFF;
+}
+.people-card p {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+    margin: 0.25rem 0 0 0;
+}
+.people-card .linkedin-icon {
+    color: #FFF;
+    font-size: 1.5rem;
+    margin-top: 1rem;
+    display: inline-block;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+}
+.people-card .linkedin-icon:hover {
+    opacity: 1;
+}
+
+/* --- People Page PI Section --- */
+.pi-section {
+    background-color: var(--card-bg);
+    border-radius: 15px;
+    padding: 3rem;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 3rem;
+    align-items: flex-start;
+    border: 1px solid var(--border-color);
+}
+.pi-photo-bio {
+    text-align: center;
+}
+.pi-photo-bio img {
+    width: 100%;
+    max-width: 250px;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+.pi-photo-bio h3 {
+    color: #FFF;
+    font-size: 1.5rem;
+}
+.pi-photo-bio p {
+    font-size: 0.95rem;
+    opacity: 0.8;
+    text-align: left;
+}
+.pi-details h4 {
+    color: var(--secondary-color);
+    font-size: 1.2rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+.pi-details ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem 0;
+}
+.pi-details ul li {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+    padding-left: 1.5rem;
+    position: relative;
+}
+.pi-details ul li::before {
+    content: '▹';
+    position: absolute;
+    left: 0;
+    color: var(--secondary-color);
+}
+@media (max-width: 992px) {
+    .pi-section {
+        grid-template-columns: 1fr;
+    }
 }
 
 .card-icon {
@@ -388,12 +525,34 @@ body {
         font-size: 2rem;
     }
 }
-.serb-logo, .nih-logo {
-    height: 300px;
-    max-width: 500px;
+
+/* --- Fade Up Animation --- */
+.fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
-.icmr-logo, .rguhs-logo {
-    height: 100px;
-    max-width: 150px;
+.fade-up.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- News Grid --- */
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
+
+@media (max-width: 1200px) {
+    .news-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .news-grid {
+        grid-template-columns: 1fr;
+    }
 }
