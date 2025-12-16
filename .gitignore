@@ -1,6 +1,22 @@
-# Ignore resume files
+# General
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Dependencies
+node_modules/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Specific Files
 Resume - Patra, Tapas.docx
 Resume - Patra, Tapas.txt
+Resume - Patra, Tapas.pdf
 ~$sume - Patra, Tapas.docx
-.DS_Store
 images/sscf_logo.png
