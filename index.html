@@ -6,14 +6,14 @@
     <title>Translational Immuno-Oncology</title>
     <link rel="stylesheet" href="styles/immuno_oncology_theme.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="icon" type="image/png" href="./images/sscf_logo.png">
+    <link rel="icon" type="image/png" href="images/lab_logo.png">
 </head>
 <body>
 
     <div id="canvas-background"></div>
 
     <!-- Navigation -->
-    <a href="index.html" class="lab-name-logo">Translational Immuno-Oncology</a>
+<a href='index.html' class='lab-name-logo' style='padding: 0.5rem;'><img src='images/lab_logo.png' alt='Lab Logo' style='height: 10rem; vertical-align: middle;'></a>
     
     <button class="hamburger-menu">
         <span class="bar"></span>
@@ -69,27 +69,27 @@
             <h2 class="section-title">Core Research Areas</h2>
             <div class="cards-grid">
                 <div class="research-card">
-                    <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="card-icon"><img src="images/TCellReceptor0003-orange.png" alt="T Cell Logo" style="height: 60px; width: auto;"></div>
                     <h3 class="card-title">Tumor Immunology</h3>
                     <p class="card-description">Dissecting the tumor microenvironment to enhance the efficacy of immunotherapies and overcome resistance.</p>
                 </div>
                 <div class="research-card">
-                    <div class="card-icon"><i class="fas fa-crosshairs"></i></div>
+                    <div class="card-icon"><i class="fas fa-search-plus" style="color: #FF8C00;"></i></div>
                     <h3 class="card-title">Biomarker Discovery</h3>
                     <p class="card-description">Identifying and validating novel biomarkers for early diagnosis, prognosis, and prediction of treatment response.</p>
                 </div>
                 <div class="research-card">
-                    <div class="card-icon"><i class="fas fa-microscope"></i></div>
+                    <div class="card-icon"><i class="fas fa-pills" style="color: #FF8C00;"></i></div>
                     <h3 class="card-title">Cancer Therapeutics</h3>
                     <p class="card-description">Developing novel therapeutic strategies and drug combinations to target cancer cells and improve patient outcomes.</p>
                 </div>
                 <div class="research-card">
-                    <div class="card-icon"><i class="fas fa-shield-virus"></i></div>
+                    <div class="card-icon"><i class="fas fa-syringe" style="color: #FF8C00;"></i></div>
                     <h3 class="card-title">Precision Immunotherapy</h3>
                     <p class="card-description">Tailoring immunotherapeutic approaches based on individual patient profiles and tumor characteristics for enhanced efficacy.</p>
                 </div>
                 <div class="research-card">
-                    <div class="card-icon"><i class="fas fa-bacteria"></i></div>
+                    <div class="card-icon"><i class="fas fa-bacteria" style="color: #FF8C00;"></i></div>
                     <h3 class="card-title">Tumor Microbiome</h3>
                     <p class="card-description">Exploring the role of the microbiome in cancer development, progression, and response to therapy.</p>
                 </div>
@@ -110,7 +110,7 @@
     <!-- Footer -->
     <footer class="footer">
         <p>&copy; 2025 Translational Immuno-Oncology. All Rights Reserved.</p>
-        <p>Developed with creativity by Gemini.</p>
+        <p>Developed by Gemini and maintained by Nawaneetan.</p>
     </footer>
 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
@@ -161,7 +161,7 @@ class TCell {
     constructor(x, y) {
         this.pos = createVector(x, y);
         this.vel = p5.Vector.random2D().mult(random(0.3, 0.6));
-        this.size = 12;
+        this.size = 20;
         this.color = color(100, 255, 100, 200); // Vibrant Green
         this.target = null;
     }
@@ -231,7 +231,7 @@ class CancerCell {
     constructor(x, y) {
         this.pos = createVector(x, y);
         this.vel = p5.Vector.random2D().mult(random(0.1, 0.2));
-        this.maxSize = random(25, 35);
+        this.maxSize = random(40, 50);
         this.size = this.maxSize;
         this.color = color(200, 100, 150, 150); // More reddish-purple
         this.nucleusColor = color(80, 40, 100, 180); // Darker blue/purple

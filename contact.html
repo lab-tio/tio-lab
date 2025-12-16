@@ -6,7 +6,7 @@
     <title>Contact - Translational Immuno-Oncology</title>
     <link rel="stylesheet" href="styles/immuno_oncology_theme.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="icon" type="image/png" href="./images/sscf_logo.png">
+    <link rel="icon" type="image/png" href="images/lab_logo.png">
     <style>
         /* Page-specific styles for contact page */
         .contact-grid {
@@ -63,7 +63,7 @@
     <div id="canvas-background"></div>
 
     <!-- Navigation -->
-    <a href="index.html" class="lab-name-logo">Translational Immuno-Oncology</a>
+<a href='index.html' class='lab-name-logo' style='padding: 0.5rem;'><img src='images/lab_logo.png' alt='Lab Logo' style='height: 10rem; vertical-align: middle;'></a>
     
     <button class="hamburger-menu">
         <span class="bar"></span>
@@ -107,6 +107,9 @@
                     <br>
                     <h3><i class="fas fa-envelope"></i> Email</h3>
                     <p><a href="mailto:tapaspatra@ssnccpr.org">tapaspatra@ssnccpr.org</a></p>
+                    <p><a href="mailto:tpatra012@gmail.com">tpatra012@gmail.com</a></p>
+                    <h3><i class="fas fa-envelope"></i> Phone No.</h3>
+                    <p>+91-8617791241</p>
                 </div>
                 <div class="map-container">
                     <iframe 
@@ -120,7 +123,7 @@
 
     <footer class="footer">
         <p>&copy; 2025 Translational Immuno-Oncology. All Rights Reserved.</p>
-        <p>Developed with creativity by Gemini.</p>
+        <p>Developed by Gemini and maintained by Nawaneetan.</p>
     </footer>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
@@ -171,7 +174,7 @@ class TCell {
     constructor(x, y) {
         this.pos = createVector(x, y);
         this.vel = p5.Vector.random2D().mult(random(0.3, 0.6));
-        this.size = 12;
+        this.size = 20;
         this.color = color(100, 255, 100, 200); // Vibrant Green
         this.target = null;
     }
@@ -241,7 +244,7 @@ class CancerCell {
     constructor(x, y) {
         this.pos = createVector(x, y);
         this.vel = p5.Vector.random2D().mult(random(0.1, 0.2));
-        this.maxSize = random(25, 35);
+        this.maxSize = random(40, 50);
         this.size = this.maxSize;
         this.color = color(200, 100, 150, 150); // More reddish-purple
         this.nucleusColor = color(80, 40, 100, 180); // Darker blue/purple
