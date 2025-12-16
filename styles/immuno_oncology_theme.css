@@ -10,7 +10,7 @@ Description: A futuristic, clean, and data-driven design for a translational imm
     --secondary-color: #FFB238; /* Warm Gold */
     --accent-color: #FFB238; /* Warm Gold/Orange */
     --text-color: #E0E0E0;
-    --bg-color: #56575E;
+    --bg-color: #808080;
     --card-bg: #0E2A47;
     --border-color: rgba(255, 178, 56, 0.2);
 }
@@ -156,6 +156,10 @@ body {
     padding: 6rem 0; /* Removed horizontal padding */
     max-width: 1400px;
     margin: 0 auto;
+}
+
+.pi-content-section {
+    padding-top: 2rem;
 }
 
 #research {
