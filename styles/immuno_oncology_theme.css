@@ -308,7 +308,7 @@ body {
     border-radius: 15px;
     padding: 3rem;
     display: grid;
-    grid-template-columns: 300px 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 3rem;
     align-items: flex-start;
     border: 1px solid var(--border-color);
