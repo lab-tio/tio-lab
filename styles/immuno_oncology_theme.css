@@ -560,3 +560,7 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+.no-bg {
+    mix-blend-mode: multiply;
+}
