@@ -10,9 +10,30 @@ Description: A futuristic, clean, and data-driven design for a translational imm
     --secondary-color: #FFB238; /* Warm Gold */
     --accent-color: #FFB238; /* Warm Gold/Orange */
     --text-color: #E0E0E0;
-    --bg-color: #808080;
+    --bg-color: #051424; /* Changed from #808080 to match animation background */
     --card-bg: #0E2A47;
     --border-color: rgba(255, 178, 56, 0.2);
+
+    /* --- Spacing Scale ("Functions") --- */
+    /* Use these variables to ensure consistency */
+    --space-0: 0;
+    --space-xs: 0.5rem;  /* 8px */
+    --space-sm: 1rem;    /* 16px */
+    --space-md: 2rem;    /* 32px */
+    --space-lg: 3rem;    /* 48px */
+    --space-xl: 4rem;    /* 64px */
+    --space-2xl: 5rem;   /* 80px */
+    --space-3xl: 6rem;   /* 96px */
+    --space-4xl: 8rem;   /* 128px */
+
+    /* --- Component Defaults --- */
+    /* You can tweak these to change padding globally for specific components */
+    --hero-pad-top-default: 0;           /* Default for subpages */
+    --hero-pad-top-home: var(--space-2xl); /* 5rem - Specific for Home */
+    --hero-pad-x: var(--space-md);       /* 2rem - Horizontal padding for heroes */
+    
+    --section-pad-y: var(--space-3xl);   /* 6rem - Vertical padding for content sections */
+    --heading-margin-b: var(--space-xl); /* 4rem - Bottom margin for section titles */
 }
 
 * {
@@ -36,6 +57,8 @@ body {
 
 main {
     flex-grow: 1;
+    position: relative; /* Ensure content is above fixed background */
+    z-index: 1;
 }
 
 /* --- Canvas Background --- */
@@ -66,9 +89,33 @@ main {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
+.lab-name-logo img {
+    height: 10rem; /* Default desktop size */
+    vertical-align: middle;
+    width: auto; /* Maintain aspect ratio */
+}
+
+@media (max-width: 1200px) { /* Adjust for medium screens */
+    .lab-name-logo img {
+        height: 8rem;
+    }
+}
+
+@media (max-width: 768px) { /* Adjust for smaller screens/tablets */
+    .lab-name-logo img {
+        height: 6rem;
+    }
+}
+
+@media (max-width: 576px) { /* Adjust for mobile screens */
+    .lab-name-logo img {
+        height: 5rem;
+    }
+}
+
 .navbar {
     position: fixed;
-    top: 1.5rem;
+    top: 2rem;
     right: 0.5%; /* Move to extreme right */
     left: auto; /* Remove left positioning */
     transform: none; /* Remove transform */
@@ -78,7 +125,7 @@ main {
     backdrop-filter: blur(5px); /* Liquid glass effect */
     border: 1px solid var(--border-color);
     border-radius: 50px;
-    padding: 0.5rem 1rem;
+    padding: 0.2rem 0.6rem; /* Further reduced padding */
     transition: background-color 0.3s ease, backdrop-filter 0.3s ease, border-color 0.3s ease, padding 0.3s ease;
 }
 
@@ -86,7 +133,7 @@ main {
     background-color: rgba(14, 42, 71, 0.5); /* Slightly lighter than card-bg */
     backdrop-filter: blur(10px);
     border-color: rgba(255, 255, 255, 0.1);
-    padding: 0.5rem 1.5rem;
+    padding: 0.2rem 1rem; /* Further reduced scrolled padding */
 }
 
 .navbar-nav {
@@ -96,30 +143,33 @@ main {
 }
 
 .nav-item {
-    margin: 0 0.5rem;
+    margin: 0 0.01rem; /* Drastically reduced spacing */
 }
 
 .nav-link {
     text-decoration: none;
     color: #FFF;
     font-weight: 400;
-    padding: 0.75rem 1rem;
-    border-radius: 30px;
-    transition: color 0.3s, background-color 0.3s;
+    padding: 0.1rem 0.2rem; /* Drastically reduced padding */
+    border-radius: 10px; /* Reduced border-radius */
+    transition: color 0.3s, background-color 0.3s, transform 0.2s; /* Added transform transition */
+    font-size: 0.6rem; /* Drastically reduced font size */
 }
 
 .nav-link:hover {
     background-color: rgba(255, 255, 255, 0.1);
+    transform: scale(0.9); /* Reduce size on hover */
 }
 
 .nav-link.active {
     background-color: var(--secondary-color);
     color: var(--primary-color);
+    transform: scale(0.9); /* Reduce size on active */
 }
 
 /* --- Hero Section --- */
 .hero-section {
-    height: 100vh;
+    /* height: 100vh;  <-- Removed to allow subpages to control height via inline styles */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -128,11 +178,19 @@ main {
     padding: 0 2rem;
 }
 
+/* Specific styles for the index page hero */
+#hero {
+    min-height: 100vh; /* Ensure full screen on home page */
+    padding-top: 5rem; /* Restored reasonable padding for 100% zoom */
+    justify-content: center; /* Center content vertically */
+}
+
 .hero-title {
-    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-size: clamp(2.5rem, 5vw, 4.5rem); /* Restored larger size */
     font-weight: 700;
     color: #FFF;
     line-height: 1.2;
+    margin-bottom: 1.5rem; /* Add spacing between title and tagline */
 }
 
 .hero-title .highlight {
@@ -140,9 +198,9 @@ main {
 }
 
 .hero-tagline {
-    font-size: clamp(1rem, 2vw, 1.5rem);
+    font-size: clamp(1rem, 2vw, 1.5rem); /* Restored larger size */
     font-weight: 300;
-    margin: 1.5rem 0 2.5rem 0;
+    margin: 0 0 3rem 0; /* Increased bottom margin for spacing */
     max-width: 700px;
 }
 
@@ -150,7 +208,7 @@ main {
     background: var(--secondary-color);
     color: var(--primary-color);
     text-decoration: none;
-    padding: 1rem 2.5rem;
+    padding: 1rem 2.5rem; /* Restored standard padding */
     border-radius: 50px;
     font-weight: 600;
     transition: transform 0.3s, box-shadow 0.3s;
@@ -163,25 +221,31 @@ main {
 
 /* --- Content Sections --- */
 .content-section {
-    padding: 6rem 0; /* Removed horizontal padding */
+    /* Use variables for dynamic control */
+    padding-top: var(--section-pad-y);
+    padding-bottom: var(--section-pad-y);
     max-width: 1400px;
     margin: 0 auto;
 }
 
 .pi-content-section {
-    padding-top: 2rem;
+    padding-top: var(--space-md); /* Override: 2rem */
 }
 
 #research {
-    max-width: none; /* Allow it to take full width */
-    padding: 6rem 0.5rem; /* Desired padding for the section */
+    max-width: none;
+    /* Use padding utility variables or mixins logic */
+    padding-top: var(--section-pad-y);
+    padding-bottom: var(--section-pad-y);
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
 }
 
 .section-title {
     text-align: center;
-    font-size: 2.5rem;
+    font-size: 2.5rem; /* Restored standard size */
     font-weight: 600;
-    margin-bottom: 4rem;
+    margin-bottom: 4rem; /* Restored standard margin */
     position: relative;
 }
 
@@ -208,7 +272,7 @@ main {
     font-size: 1.1rem;
     line-height: 1.8;
     margin-bottom: 1rem;
-    text-align: justify;
+    text-align: left; /* Kept left alignment as requested */
 }
 
 .mission-graphic {
@@ -223,12 +287,12 @@ main {
     flex-wrap: wrap;
     justify-content: center;
     gap: 1rem;
-    padding: 0; /* Remove padding from cards-grid itself */
+    padding: 0;
 }
 
 #research .research-card {
-    flex: 1 1 calc(20% - 1rem); /* flex-grow, flex-shrink, flex-basis */
-    max-width: calc(20% - 1rem); /* Ensure it doesn't grow larger than 20% */
+    flex: 1 1 calc(20% - 1rem);
+    max-width: calc(20% - 1rem);
     background: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: 15px;
@@ -400,8 +464,8 @@ main {
 }
 
 .logo-item img {
-    height: 200px;
-    max-width: 300px;
+    height: 200px; /* Restored height */
+    max-width: 300px; /* Restored max-width */
     object-fit: contain;
     filter: grayscale(100%) brightness(1.5);
     transition: filter 0.3s;
@@ -420,13 +484,14 @@ main {
 .footer {
     background: var(--primary-color);
     text-align: center;
-    padding: 3rem 2rem;
-    margin-top: 4rem;
+    padding: 3rem 2rem; /* Restored padding */
+    margin-top: 4rem; /* Restored margin */
 }
 
 .footer p {
     margin: 0;
     opacity: 0.7;
+    /* Removed explicit small font-size override */
 }
 
 /* --- Mobile Navigation --- */
@@ -493,17 +558,17 @@ main {
     margin: 1rem 0; /* Adjust vertical margin */
 }
 
-.mobile-nav .nav-link {
-    font-size: 1.2rem; /* Adjusted font size */
+.nav-link {
+    font-size: 1.2rem; /* Restored adjusted font size */
     font-weight: 600;
-    padding: 0.8rem 1.5rem; /* Increased padding for larger pill */
+    padding: 0.8rem 1.5rem; /* Restored padding */
     text-align: center; /* Center text within link */
     border-radius: 30px; /* Ensure pill shape */
 }
 
 
 /* --- Responsive Adjustments --- */
-@media (max-width: 1200px) {
+@media (max-width: 992px) { /* Kept the 992px change for layout */
     .lab-name-logo {
         font-size: 1.2rem;
     }
@@ -525,6 +590,15 @@ main {
         order: -1; /* Put image on top */
         max-width: 80%;
         margin: 0 auto;
+        display: block; /* Ensure centering works */
+        height: auto;   /* Maintain aspect ratio */
+        object-fit: contain;
+    }
+
+    .mission-content { /* Align mission content with the graphic below */
+        max-width: 80%;
+        margin: 0 auto;
+        text-align: center; /* Center the text within its constrained width */
     }
 
     .hero-title {
@@ -537,6 +611,31 @@ main {
 
     .section-title {
         font-size: 2rem;
+    }
+}
+
+/* Specific adjustments for very small screens */
+@media (max-width: 576px) {
+    /* Keep 2 columns on mobile but scale down cards */
+    #research .research-card {
+        flex-basis: calc(50% - 0.5rem); /* 2 per row with gap */
+        max-width: calc(50% - 0.5rem);
+        padding: 1rem; /* Reduced padding */
+    }
+    
+    #research .card-icon {
+        font-size: 2rem; /* Smaller icon */
+        margin-bottom: 0.5rem;
+    }
+
+    #research .card-title {
+        font-size: 1rem; /* Smaller title */
+        margin-bottom: 0.5rem;
+    }
+
+    #research .card-description {
+        font-size: 0.8rem; /* Smaller text */
+        line-height: 1.4;
     }
 }
 
@@ -569,6 +668,51 @@ main {
     .news-grid {
         grid-template-columns: 1fr;
     }
+    .content-section { /* Apply horizontal padding to all content sections on small screens */
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
 }
 
+/* =========================================
+   UTILITY CLASSES - PADDING SYSTEM
+   Use these in your HTML to override defaults
+   ========================================= */
 
+/* Padding Y (Top & Bottom) */
+.py-0   { padding-top: var(--space-0) !important; padding-bottom: var(--space-0) !important; }
+.py-xs  { padding-top: var(--space-xs) !important; padding-bottom: var(--space-xs) !important; }
+.py-sm  { padding-top: var(--space-sm) !important; padding-bottom: var(--space-sm) !important; }
+.py-md  { padding-top: var(--space-md) !important; padding-bottom: var(--space-md) !important; }
+.py-lg  { padding-top: var(--space-lg) !important; padding-bottom: var(--space-lg) !important; }
+.py-xl  { padding-top: var(--space-xl) !important; padding-bottom: var(--space-xl) !important; }
+.py-2xl { padding-top: var(--space-2xl) !important; padding-bottom: var(--space-2xl) !important; }
+.py-3xl { padding-top: var(--space-3xl) !important; padding-bottom: var(--space-3xl) !important; }
+
+/* Padding Top Only */
+.pt-0   { padding-top: var(--space-0) !important; }
+.pt-xs  { padding-top: var(--space-xs) !important; }
+.pt-sm  { padding-top: var(--space-sm) !important; }
+.pt-md  { padding-top: var(--space-md) !important; }
+.pt-lg  { padding-top: var(--space-lg) !important; }
+.pt-xl  { padding-top: var(--space-xl) !important; }
+.pt-2xl { padding-top: var(--space-2xl) !important; }
+.pt-3xl { padding-top: var(--space-3xl) !important; }
+
+/* Padding Bottom Only */
+.pb-0   { padding-bottom: var(--space-0) !important; }
+.pb-xs  { padding-bottom: var(--space-xs) !important; }
+.pb-sm  { padding-bottom: var(--space-sm) !important; }
+.pb-md  { padding-bottom: var(--space-md) !important; }
+.pb-lg  { padding-bottom: var(--space-lg) !important; }
+.pb-xl  { padding-bottom: var(--space-xl) !important; }
+.pb-2xl { padding-bottom: var(--space-2xl) !important; }
+.pb-3xl { padding-bottom: var(--space-3xl) !important; }
+
+/* Margin Bottom (for Headings) */
+.mb-0   { margin-bottom: var(--space-0) !important; }
+.mb-xs  { margin-bottom: var(--space-xs) !important; }
+.mb-sm  { margin-bottom: var(--space-sm) !important; }
+.mb-md  { margin-bottom: var(--space-md) !important; }
+.mb-lg  { margin-bottom: var(--space-lg) !important; }
+.mb-xl  { margin-bottom: var(--space-xl) !important; }

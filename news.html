@@ -25,7 +25,9 @@
         .news-image {
             width: 100%;
             height: 200px;
-            object-fit: cover;
+            object-fit: contain;
+            cursor: pointer;
+            background-color: rgba(0,0,0,0.2);
         }
         .news-content {
             padding: 1.5rem;
@@ -56,6 +58,98 @@
         .news-link:hover {
             color: #FFF;
         }
+
+        /* Lightbox styles */
+        .lightbox {
+            display: flex; /* Always flex but hidden with opacity */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Translucent background */
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            opacity: 0; /* Start invisible */
+            transition: opacity 0.4s ease-out; /* Only fade background */
+            pointer-events: none;
+            visibility: hidden; /* Hide completely to prevent blocking */
+        }
+        .lightbox.active {
+            opacity: 1;
+            pointer-events: auto;
+            visibility: visible;
+        }
+        .lightbox-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 80vw;
+            max-height: 90vh;
+            transform: scale(0); /* Default closed state */
+            transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1); /* Genie / Zoom effect */
+        }
+        /* ... existing content styles ... */
+        .lightbox-content {
+            max-width: 100%;
+            max-height: 70vh;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            object-fit: contain;
+            background-color: #000;
+        }
+        .lightbox-text {
+            background: rgba(255, 255, 255, 0.1); /* Increased transparency (more see-through) */
+            color: #FFF; /* White text */
+            padding: 1rem;
+            width: 100%; /* Take full width of wrapper */
+            text-align: center;
+            margin-top: 1rem; /* Gap between image and text */
+            border-radius: 8px; /* Rounded corners */
+            backdrop-filter: blur(3px);
+        }
+        .lightbox-date {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        .lightbox-caption {
+            font-size: 1.1rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            color: #FFF;
+            font-size: 3rem;
+            cursor: pointer;
+            line-height: 1;
+            z-index: 2001;
+        }
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            z-index: 2002;
+            padding: 1rem;
+            transition: color 0.3s;
+            user-select: none;
+        }
+        .lightbox-nav:hover {
+            color: #FFF;
+        }
+        .lightbox-prev { left: 2rem; }
+        .lightbox-next { right: 2rem; }
     </style>
 </head>
 <body>
@@ -63,7 +157,7 @@
     <div id="canvas-background"></div>
 
     <!-- Navigation -->
-<a href='index.html' class='lab-name-logo' style='padding: 0.5rem;'><img src='images/lab_logo.png' alt='Lab Logo' style='height: 10rem; vertical-align: middle;'></a>
+<a href='index.html' class='lab-name-logo' style='padding: 0.5rem;'><img src='images/lab_logo.png' alt='Lab Logo'></a>
     
     <button class="hamburger-menu">
         <span class="bar"></span>
@@ -148,7 +242,7 @@
                     <div class="news-content">
                         <span class="news-date">August 10, 2021</span>
                         <h5 class="news-caption">Dr. Patra's article on SARS-CoV-2 spike protein was highlighted in the Journal of Virology.</h5>
-                        <a href="https://onlinelibrary.wiley.com/toc/27709140/2025/2/3" target="_blank" class="cover-link">Cover link</a>
+                        <a href="#" target="_blank" class="cover-link"></a>
                     </div>
                 </div>
                 <div class="news-card">
@@ -184,6 +278,19 @@
             </div>
         </section>
     </main>
+
+    <div class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <span class="lightbox-nav lightbox-prev">&lt;</span>
+        <span class="lightbox-nav lightbox-next">&gt;</span>
+        <div class="lightbox-wrapper">
+            <img src="" alt="Lightbox Image" class="lightbox-content">
+            <div class="lightbox-text">
+                <span class="lightbox-date"></span>
+                <p class="lightbox-caption"></p>
+            </div>
+        </div>
+    </div>
 
     <footer class="footer">
         <p>&copy; 2025 Translational Immuno-Oncology. All Rights Reserved.</p>
@@ -424,35 +531,155 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// --- Gallery Lightbox ---
-const galleryItems = document.querySelectorAll('.gallery-item');
+// --- Lightbox ---
+const lightboxTriggers = Array.from(document.querySelectorAll('.gallery-item, .news-image'));
 const lightbox = document.querySelector('.lightbox');
 const lightboxContent = document.querySelector('.lightbox-content');
+const lightboxDate = document.querySelector('.lightbox-date');
+const lightboxCaption = document.querySelector('.lightbox-caption');
+const lightboxText = document.querySelector('.lightbox-text');
 const lightboxClose = document.querySelector('.lightbox-close');
+const lightboxPrev = document.querySelector('.lightbox-prev');
+const lightboxNext = document.querySelector('.lightbox-next');
 
-if (galleryItems) {
-    galleryItems.forEach(item => {
+const lightboxWrapper = document.querySelector('.lightbox-wrapper');
+
+let currentIndex = 0;
+
+function getTransformStart(index) {
+    const item = lightboxTriggers[index];
+    if (!item) return 'scale(0)';
+    
+    const rect = item.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    // Window center
+    const winCenterX = window.innerWidth / 2;
+    const winCenterY = window.innerHeight / 2;
+    
+    // Calculate delta
+    const deltaX = centerX - winCenterX;
+    const deltaY = centerY - winCenterY;
+    
+    return `translate(${deltaX}px, ${deltaY}px) scale(0.1)`; // Start small at source
+}
+
+function updateLightboxContent(index) {
+    if (index < 0) index = lightboxTriggers.length - 1;
+    if (index >= lightboxTriggers.length) index = 0;
+    currentIndex = index;
+
+    const item = lightboxTriggers[currentIndex];
+    let imgSrc;
+    let dateText = '';
+    let captionText = '';
+
+    // Check if it's a news item
+    if (item.classList.contains('news-image')) {
+        imgSrc = item.src;
+        const newsCard = item.closest('.news-card');
+        if (newsCard) {
+            const dateEl = newsCard.querySelector('.news-date');
+            const captionEl = newsCard.querySelector('.news-caption');
+            if (dateEl) dateText = dateEl.textContent;
+            if (captionEl) captionText = captionEl.textContent;
+        }
+    } 
+    // Check if it's a gallery item (fallback/shared logic)
+    else if (item.tagName === 'IMG') {
+        imgSrc = item.src;
+    } else {
+        const img = item.querySelector('img');
+        if (img) imgSrc = img.src;
+    }
+    
+    if (imgSrc) {
+        lightboxContent.src = imgSrc;
+        
+        if (dateText || captionText) {
+            lightboxDate.textContent = dateText;
+            lightboxCaption.textContent = captionText;
+            lightboxText.style.display = 'block';
+        } else {
+            lightboxText.style.display = 'none';
+        }
+    }
+}
+
+function openLightbox(index) {
+    updateLightboxContent(index);
+    
+    // Prepare animation start state
+    lightboxWrapper.style.transition = 'none'; // Disable transition for instant setup
+    lightboxWrapper.style.transform = getTransformStart(index);
+    
+    lightbox.classList.add('active');
+    
+    // Trigger reflow
+    void lightboxWrapper.offsetWidth;
+    
+    // Animate to center
+    lightboxWrapper.style.transition = 'transform 0.5s cubic-bezier(0.19, 1, 0.22, 1)';
+    lightboxWrapper.style.transform = 'translate(0, 0) scale(1)';
+}
+
+function closeLightbox() {
+    // Animate back to source
+    lightboxWrapper.style.transition = 'transform 0.4s cubic-bezier(0.19, 1, 0.22, 1)';
+    lightboxWrapper.style.transform = getTransformStart(currentIndex);
+    lightbox.style.opacity = '0'; // Fade out background simultaneously
+
+    // Wait for animation to finish before hiding
+    setTimeout(() => {
+        lightbox.classList.remove('active');
+        lightbox.style.opacity = ''; // Reset inline opacity
+    }, 400);
+}
+
+if (lightboxTriggers.length > 0) {
+    lightboxTriggers.forEach((item, index) => {
         item.addEventListener('click', () => {
-            const imgSrc = item.querySelector('img').src;
-            lightboxContent.src = imgSrc;
-            lightbox.classList.add('active');
+            openLightbox(index);
         });
+    });
+}
+
+if (lightboxPrev) {
+    lightboxPrev.addEventListener('click', (e) => {
+        e.stopPropagation();
+        updateLightboxContent(currentIndex - 1);
+    });
+}
+
+if (lightboxNext) {
+    lightboxNext.addEventListener('click', (e) => {
+        e.stopPropagation();
+        updateLightboxContent(currentIndex + 1);
     });
 }
 
 if (lightboxClose) {
     lightboxClose.addEventListener('click', () => {
-        lightbox.classList.remove('active');
+        closeLightbox();
     });
 }
 
 if (lightbox) {
     lightbox.addEventListener('click', (e) => {
         if (e.target === lightbox) {
-            lightbox.classList.remove('active');
+            closeLightbox();
         }
     });
 }
+
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('active')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') updateLightboxContent(currentIndex - 1);
+    if (e.key === 'ArrowRight') updateLightboxContent(currentIndex + 1);
+});
         </script>
 
     </body>
