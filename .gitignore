@@ -20,3 +20,7 @@ Resume - Patra, Tapas.txt
 Resume - Patra, Tapas.pdf
 ~$sume - Patra, Tapas.docx
 images/sscf_logo.png
+
+.gemini/
+gha-creds-*.json
+.github/
