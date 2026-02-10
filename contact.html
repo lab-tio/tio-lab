@@ -37,10 +37,16 @@
         .contact-info a {
             color: var(--text-color);
             text-decoration: none;
-            transition: color 0.3s;
+            transition: all 0.3s ease;
+            display: inline-block;
         }
         .contact-info a:hover {
             color: var(--secondary-color);
+            transform: translateX(5px);
+        }
+        .phone-number {
+            letter-spacing: 0.5px;
+            font-weight: 500;
         }
         .map-container {
             border-radius: 10px;
@@ -109,8 +115,8 @@
                     <h3><i class="fas fa-envelope"></i> Email</h3>
                     <p><a href="mailto:tapaspatra@ssnccpr.org">tapaspatra@ssnccpr.org</a><br><a href="mailto:tpatra012@gmail.com">tpatra012@gmail.com</a></p>
                     <br>
-                    <h3><i class="fas fa-phone"></i> Phone No.</h3>
-                    <p>+91-8617791241</p>
+                    <h3><i class="fas fa-phone"></i> Phone</h3>
+                    <p><a href="tel:+918617791241" class="phone-number">+91 86177 91241</a></p>
                 </div>
                 <div class="map-container">
                     <iframe 
